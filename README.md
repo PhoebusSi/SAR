@@ -31,5 +31,7 @@ To build the Dataset for the Answer Re-ranking module based on Visual Entailment
 
 After the Candidate Answers Selecting Module, we can get `TrainingSet_top20_condidates.json` and `TestSet_top20_condidates.json` files as the training and test set for Answer Re-ranking Module,respectively.
 
+## Training and Evaluate of Answer Re-ranking based on Visual Entailment
+
 
 
