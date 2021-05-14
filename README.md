@@ -1,6 +1,6 @@
 # SAR-VQA
 Here is the implementation of our ACL-2021 [Check It Again: Progressive Visual Question Answering via Visual Entailment](https://arxiv.org/).
-This repository contains code modified from [here](https://github.com/CrossmodalGroup/SSL-VQA), many thanks!
+This repository contains code modified from [here for SAR+SSL](https://github.com/CrossmodalGroup/SSL-VQA) and [here for SAR+LMH](https://github.com/chrisc36/bottom-up-attention-vqa), many thanks!
 ## Requirements
 * python 3.7.6
 * pytorch 1.5.0
@@ -19,8 +19,6 @@ python preprocess_text.py --dataroot vqacp2/ --version v2
 cd ..
 ```
 
-## Training Candidate Answers Selector (SSL)
-```Bash
-cd CAS
-CUDA_VISIBLE_DEVICES=0 python main.py --dataroot data/vqacp2/ --img_root data/coco/ --output saved_models_cp2/ --self_loss_weight 3 --ml_loss 
-```
+## Training Candidate Answers Selector
+The VQA model applied as CAS is free choice in our framework. In this paper, we mainly use SSL as CAS. 
+
