@@ -29,10 +29,12 @@ This repository contains code modified from [here for SAR+SSL](https://github.co
 * To build the Dataset for the Answer Re-ranking module based on Visual Entailment, we modified the SSL's code of `VQAFeatureDataset()` in [dataset_vqacp.py](https://github.com/CrossmodalGroup/SSL-VQA/blob/master/dataset_vqacp.py) and `evaluate()` in [train.py](https://github.com/CrossmodalGroup/SSL-VQA/blob/master/train.py).  The modified codes are avaliable in `CAS_scripts`, just replace the corresponding class/function in [SSL](https://github.com/CrossmodalGroup/SSL-VQA).
 
 
-* After the Candidate Answers Selecting Module, we can get `TrainingSet_top20_condidates.json` and `TestSet_top20_condidates.json` files as the training and test set for Answer Re-ranking Module,respectively.
+* After the Candidate Answers Selecting Module, we can get `TrainingSet_top20_candidates.json` and `TestSet_top20_candidates.json` files as the training and test set for Answer Re-ranking Module,respectively.
 
 ## Training( Answer Re-ranking based on Visual Entailment)
-* Train Top20-SAR+LMH(R)
+* Train Top12-SAR(R->C)
+* Train Top12-SAR(R->C)
+* Train Top20-SAR+SSL(R->C)
 * 
 
 
