@@ -21,7 +21,13 @@ cd ..
 
 ## Training Candidate Answers Selector and Building The Datasets for The Answers Re-ranking Module
 The VQA model applied as CAS is free choice in our framework. In this paper, we mainly use SSL as CAS. 
-The setting of model training of CAS can be refered [SSL](https://github.com/CrossmodalGroup/SSL-VQA). 
-To build the Dataset for the Answer Re-ranking module based on Visual Entailment, we modified the class `VQAFeatureDataset()` in `dataset_vqacp.py` and the function `evaluate()` in `train.py`.  
 
+
+The setting of model training of CAS can be refered in [SSL](https://github.com/CrossmodalGroup/SSL-VQA). 
+
+
+To build the Dataset for the Answer Re-ranking module based on Visual Entailment, we modified the code of `VQAFeatureDataset() class` in `dataset_vqacp.py` and `evaluate()` in `train.py`.  
 The modified codes are avaliable on `CAS_scripts`, just replace the corresponding class/function in [SSL](https://github.com/CrossmodalGroup/SSL-VQA).
+
+
+After the Candidate Answers Selecting Module, we can get `TrainingSet_top20_condidates.json` and `TestSet_top20_condidates.json`.
