@@ -16,7 +16,7 @@ This repository contains code modified from [here for SAR+SSL](https://github.co
  python preprocess_image.py --data trainval
  python create_dictionary.py --dataroot vqacp2/
  python preprocess_text.py --dataroot vqacp2/ --version v2
-  cd ..
+ cd ..
 ```
 
 ## Train Candidate Answers Selector and Build The Datasets for The Answers Re-ranking Module
@@ -32,10 +32,30 @@ This repository contains code modified from [here for SAR+SSL](https://github.co
 * After the Candidate Answers Selecting Module, we can get `TrainingSet_top20_candidates.json` and `TestSet_top20_candidates.json` files as the training and test set for Answer Re-ranking Module,respectively.
 
 ## Training( Answer Re-ranking based on Visual Entailment)
-* Train Top12-SAR(R->C)
-* Train Top12-SAR(R->C)
-* Train Top20-SAR+SSL(R->C)
-* 
+* Train Top12-SAR
+```Bash
+CUDA_VISIBLE_DEVICES=0 python main.py --output saved_models_cp2/ --lp 0 --top 12
+```
+* Train Top20-SAR
+```Bash
+CUDA_VISIBLE_DEVICES=0 python main.py --output saved_models_cp2/ --lp 0 --top 20
+```
+* Train Top12-SAR+SSL
+```Bash
+CUDA_VISIBLE_DEVICES=0 python main.py --output saved_models_cp2/ --lp 1 --self_loss_weight 3 --top 12
+```
+* Train Top20-SAR+SSL
+```Bash
+CUDA_VISIBLE_DEVICES=0 python main.py --output saved_models_cp2/ --lp 1 --self_loss_weight 3 --top 20
+```
+* Train Top12-SAR+LMH
+```Bash
+CUDA_VISIBLE_DEVICES=0 python main.py --output saved_models_cp2/ --lp 2  --top 12
+```
+* Train Top20-SAR+LMH
+```Bash
+CUDA_VISIBLE_DEVICES=0 python main.py --output saved_models_cp2/ --lp 2  --top 20
+```
 
 
 
