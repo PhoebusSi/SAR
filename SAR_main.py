@@ -8,9 +8,9 @@ from torch.utils.data import DataLoader
 import torch.nn.init as init
 import numpy as np
 #R
-from Top20_SAR_replace_dataset_vqacp import Dictionary, VQAFeatureDataset
+from SAR_replace_dataset_vqacp import Dictionary, VQAFeatureDataset
 #C
-#from Top20_SAR_concatenate_dataset_vqacp import Dictionary, VQAFeatureDataset
+#from SAR_concatenate_dataset_vqacp import Dictionary, VQAFeatureDataset
 
 from LMH_lxmert_model import Model as LXM_Model
 from lxmert_model import Model

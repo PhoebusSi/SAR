@@ -141,11 +141,11 @@ def train(model, train_loader, eval_loader, opt):
 
         if (eval_loader is not None and eval_score > best_eval_score):
             if opt.lp == 0:
-                model_path = os.path.join(opt.output, 'SAR_', opt.train_condi_ans_num, 'best_model.pth')
+                model_path = os.path.join(opt.output, 'SAR'+str(opt.train_condi_ans_num)+'_best_model.pth')
             elif opt.lp == 1:
-                model_path = os.path.join(opt.output, 'SAR_SSL', opt.train_condi_ans_num, 'best_model.pth')
+                model_path = os.path.join(opt.output, 'SAR_SSL'+str(opt.train_condi_ans_num)+'_best_model.pth')
             elif opt.lp == 2:
-                model_path = os.path.join(opt.output, 'SAR_LMH', opt.train_condi_ans_num, 'best_model.pth')
+                model_path = os.path.join(opt.output, 'SAR_LMH'+str(opt.train_condi_ans_num)+'_best_model.pth')
             utils.save_model(model_path, model, epoch, optim)
             if eval_loader is not None:
                 best_eval_score = eval_score
@@ -166,7 +166,12 @@ def evaluate(model, dataloader, opt):
         a = a.cuda()
         q_id = q_id.cuda()
         qa_text = qa_text.cuda()
-        logits, _ = model(qa_text, v, b, 0, 'test', bias, a)
+        if opt.lp == 0:
+            logits = model(qa_text, v, b, 0, 'test')
+        elif opt.lp == 1:
+            logits = model(qa_text, v, b, 0, 'test')
+        elif opt.lp == 2:
+            logits, _ = model(qa_text, v, b, 0, 'test', bias, a)
         pred = logits
         batch_score = compute_score_with_logits(pred, a.cuda()).sum()
         score += batch_score.item()

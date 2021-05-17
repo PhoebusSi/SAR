@@ -9,9 +9,9 @@ import numpy as np
 from collections import defaultdict, Counter
 import opts_LMH as opts
 #R
-from Top20_SAR_replace_dataset_vqacp import Dictionary, VQAFeatureDataset
+from SAR_replace_dataset_vqacp import Dictionary, VQAFeatureDataset
 #C
-#from Top20_SAR_concatenate_dataset_vqacp import Dictionary, VQAFeatureDataset
+#from SAR_concatenate_dataset_vqacp import Dictionary, VQAFeatureDataset
 
 from LMH_lxmert_model import Model
 from QTD_model import Model as Model2
