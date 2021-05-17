@@ -34,27 +34,27 @@ This repository contains code modified from [here for SAR+SSL](https://github.co
 ## Training( Answer Re-ranking based on Visual Entailment)
 * Train Top12-SAR
 ```Bash
-CUDA_VISIBLE_DEVICES=0 python main.py --output saved_models_cp2/ --lp 0 --top 12
+CUDA_VISIBLE_DEVICES=0 python SAR_main.py --output saved_models_cp2/ --lp 0 --train_condi_ans_num 12
 ```
 * Train Top20-SAR
 ```Bash
-CUDA_VISIBLE_DEVICES=0 python main.py --output saved_models_cp2/ --lp 0 --top 20
+CUDA_VISIBLE_DEVICES=0 python SAR_main.py --output saved_models_cp2/ --lp 0 --train_condi_ans_num 20
 ```
 * Train Top12-SAR+SSL
 ```Bash
-CUDA_VISIBLE_DEVICES=0 python main.py --output saved_models_cp2/ --lp 1 --self_loss_weight 3 --top 12
+CUDA_VISIBLE_DEVICES=0 python SAR_main.py --output saved_models_cp2/ --lp 1 --self_loss_weight 3 --train_condi_ans_num 12
 ```
 * Train Top20-SAR+SSL
 ```Bash
-CUDA_VISIBLE_DEVICES=0 python main.py --output saved_models_cp2/ --lp 1 --self_loss_weight 3 --top 20
+CUDA_VISIBLE_DEVICES=0 python SAR_main.py --output saved_models_cp2/ --lp 1 --self_loss_weight 3 --train_condi_ans_num 20
 ```
 * Train Top12-SAR+LMH
 ```Bash
-CUDA_VISIBLE_DEVICES=0 python main.py --output saved_models_cp2/ --lp 2  --top 12
+CUDA_VISIBLE_DEVICES=0 python SAR_main.py --output saved_models_cp2/ --lp 2  --train_condi_ans_num 12
 ```
 * Train Top20-SAR+LMH
 ```Bash
-CUDA_VISIBLE_DEVICES=0 python main.py --output saved_models_cp2/ --lp 2  --top 20
+CUDA_VISIBLE_DEVICES=0 python SAR_main.py --output saved_models_cp2/ --lp 2  --train_condi_ans_num 20
 ```
 
 
