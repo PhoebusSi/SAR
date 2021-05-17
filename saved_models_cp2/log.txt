@@ -1,1 +1,6 @@
 nParams=	209122055
+
+lr: 0.0000100
+epoch 0, time: 19661.28
+	train_loss: 2.45, norm: 6.7790, score: 142375.67
+	eval score: 54.89 (86.42)
