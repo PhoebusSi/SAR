@@ -140,7 +140,7 @@ def _load_dataset(dataroot, name, label2ans,ratio=1.0):
     answers = sorted(answers, key=lambda x: x['question_id'])[0:len(questions)]
     
 
-    ans4reranker_path = os.path.join(dataroot, '%s_top20_ans4reranker.json'%name)
+    ans4reranker_path = os.path.join(dataroot, '%s_top20_candidates.json'%name)
     #ans4reranker_path = os.path.join('data4VE/%s_dataset4VE_demo.json'%name)
     ans4reranker = sorted(json.load(open(ans4reranker_path)),
             key=lambda x: x['question_id'])

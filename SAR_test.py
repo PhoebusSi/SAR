@@ -183,7 +183,13 @@ if __name__ == '__main__':
         if 0 <= opt.s_epoch:
             model_label += '_epoch%d' % opt.s_epoch
 
-        with open(opt.output+'/'+opt.test_type+'answers_test_%s.json' \
+        if opt.lp == 0:
+            test_type = "-SAR"
+        elif opt.lp == 1:
+            test_type = "-SAR+SSL"
+        elif opt.lp == 2:
+            test_type = "-SAR+LMH"
+        with open(opt.output+'/top'+str(opt.QTD_N4yesno)+'_'+str((opt.QTD_N4non_yesno)+test_type+'_answers_test_%s.json' \
             % (model_label), 'w') as f:
             json.dump(results, f)
 

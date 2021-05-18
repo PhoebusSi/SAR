@@ -78,8 +78,6 @@ def parse_opt():
                     help='directory to store checkpointed models4test, used for testing')
     parser.add_argument('--checkpoint_path4test_QTDmodel', type=str, default='data4VE/offline-QTD_model.pth',
                     help='directory to store the QTDmodel, used for testing')
-    parser.add_argument('--test_type', type=str, default='SAR_Top20',
-                    help='name of saved model')
     parser.add_argument('--lp', type=int, default=0, #[0, 1, 2]
                     help='the combination with Language-Priors method: 0-Non_LP; 1-SSL; 2-LMH')
     parser.add_argument('--test_candi_ans_num', type=int, default=12,
