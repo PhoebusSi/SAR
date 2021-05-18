@@ -31,7 +31,7 @@ This repository contains code modified from [here for SAR+SSL](https://github.co
 
 * After the Candidate Answers Selecting Module, we can get `TrainingSet_top20_candidates.json` and `TestSet_top20_candidates.json` files as the training and test set for Answer Re-ranking Module,respectively.
 
-## Training( Answer Re-ranking based on Visual Entailment)
+## Training (Answer Re-ranking based on Visual Entailment)
 * Train Top12-SAR
 ```Bash
 CUDA_VISIBLE_DEVICES=0,1 python SAR_main.py --output saved_models_cp2/ --lp 0 --train_condi_ans_num 12
@@ -61,3 +61,15 @@ CUDA_VISIBLE_DEVICES=0,1 python SAR_main.py --output saved_models_cp2/ --lp 2  -
 The function `evaluate()` in `SAR_train.py` is used to select the best model during training, without QTD module yet. The trained QTD model is used in `SAR_test.py` where we obtain the final test score.  
 
 ## Evaluation
+* Evaluate trained SAR model
+```Bash
+CUDA_VISIBLE_DEVICES=0 python SAR_test.py  --checkpoint_path4test saved_models_cp2/SAR_top12_best_model.pth --output saved_models_cp2/result/ --lp 0
+```
+* Evaluate trained SAR+SSL model
+```Bash
+CUDA_VISIBLE_DEVICES=0 python SAR_test.py  --checkpoint_path4test saved_models_cp2/SAR_SSL_top12_best_model.pth --output saved_models_cp2/result/ --lp 1
+```
+* Evaluate trained SAR+LMH model
+```Bash
+CUDA_VISIBLE_DEVICES=0 python SAR_test.py  --checkpoint_path4test saved_models_cp2/SAR_LMH_top12_best_model.pth --output saved_models_cp2/result/ --lp 2
+```
