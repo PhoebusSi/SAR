@@ -73,3 +73,9 @@ CUDA_VISIBLE_DEVICES=0 python SAR_test.py  --checkpoint_path4test saved_models_c
 ```Bash
 CUDA_VISIBLE_DEVICES=0 python SAR_test.py  --checkpoint_path4test saved_models_cp2/SAR_LMH_top12_best_model.pth --output saved_models_cp2/result/ --lp 2 --QTD_N4yesno 2 --QTD_N4non_yesno 12
 ```
+* Note that we mainly use `R->C` Question-Answer Combination Strategy, which can always achieves or rivals the best performance on SAR/SAR+SSL/SAR+LMH. Specifically, we ﬁrst use strategy `R` ( `SAR_replace_dataset_vqacp.py`) at training, which is aimed at preventing the model from excessively focusing on the co-occurrence relation between question category and answer, and then use strategy `C`(`SAR_replace_dataset_vqacp.py`) at testing to introduce more information for inference. 
+* Compute detailed accuracy for each answer type:
+```bash
+python comput_score.py --input saved_models_cp2/result/XX.json
+```
+
