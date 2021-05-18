@@ -31,6 +31,13 @@ This repository contains code modified from [here for SAR+SSL](https://github.co
 
 * After the Candidate Answers Selecting Module, we can get `TrainingSet_top20_candidates.json` and `TestSet_top20_candidates.json` files as the training and test set for Answer Re-ranking Module,respectively.
 
+## Builed Top20-Candidate-Answers Dataset (Entries) for Training/Test the Model of Answer Re-ranking Module
+If you don't want to train CAS model(e.g. SSL) to build the datasets in the way mentioned below, you can download the rebuiled top20-candidate-answers dataset (with different Qiestion-Answer-Combination strategy) from [here]('www.baidu.com').
+
+* Put the downloaded pkl file into the `data4VE` folder, then the code will load and rebuild it into the `entries` which will be feed in `__getitem__()`.
+* 
+
+
 ## Training (Answer Re-ranking based on Visual Entailment)
 * Train Top12-SAR
 ```Bash
