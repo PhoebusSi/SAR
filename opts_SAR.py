@@ -74,11 +74,9 @@ def parse_opt():
     parser.add_argument('--dataroot', type=str, default='../../SSL-VQA/data/vqacp2/',help='dataroot')
     parser.add_argument('--img_root', type=str, default='../../SSL-VQA/data/coco/',help='image_root')
                     
-    parser.add_argument('--checkpoint_path', type=str, default='saved_models_cp2/base/SAR_LMH_N20Lr1e-5_best_model.pth',
-                    help='directory to store checkpointed models')
-    parser.add_argument('--checkpoint_path4test', type=str, default='saved_models_cp2/base/SAR_LMH_N20Lr1e-5_best_model.pth',
+    parser.add_argument('--checkpoint_path4test', type=str, default='saved_models_cp2/base/SAR_LMH_top20_best_model.pth',
                     help='directory to store checkpointed models4test, used for testing')
-    parser.add_argument('--checkpoint_path4test_QTDmodel', type=str, default='saved_models_cp2/base/offline-QTD_model.pth',
+    parser.add_argument('--checkpoint_path4test_QTDmodel', type=str, default='data4VE/offline-QTD_model.pth',
                     help='directory to store the QTDmodel, used for testing')
     parser.add_argument('--test_type', type=str, default='SAR_Top20',
                     help='name of saved model')

@@ -141,11 +141,11 @@ def train(model, train_loader, eval_loader, opt):
 
         if (eval_loader is not None and eval_score > best_eval_score):
             if opt.lp == 0:
-                model_path = os.path.join(opt.output, 'SAR'+str(opt.train_condi_ans_num)+'_best_model.pth')
+                model_path = os.path.join(opt.output, 'SAR_top'+str(opt.train_condi_ans_num)+'_best_model.pth')
             elif opt.lp == 1:
-                model_path = os.path.join(opt.output, 'SAR_SSL'+str(opt.train_condi_ans_num)+'_best_model.pth')
+                model_path = os.path.join(opt.output, 'SAR_SSL_top'+str(opt.train_condi_ans_num)+'_best_model.pth')
             elif opt.lp == 2:
-                model_path = os.path.join(opt.output, 'SAR_LMH'+str(opt.train_condi_ans_num)+'_best_model.pth')
+                model_path = os.path.join(opt.output, 'SAR_LMH_top'+str(opt.train_condi_ans_num)+'_best_model.pth')
             utils.save_model(model_path, model, epoch, optim)
             if eval_loader is not None:
                 best_eval_score = eval_score
