@@ -82,10 +82,10 @@ if __name__ == '__main__':
     for ds in [train_dset, eval_dset]:
         for ex in ds.entries:
             q_type = ex["answer"]["question_type"]
-            condi_top20_prob_array = np.zeros(20, np.float32)
-            for i in range(len(condi_top20_prob_array)):
-                condi_top20_prob_array[i] = question_type_to_prob_array[q_type][ex['condi_ans']['top20'][i]]
-            ex['bias'] = condi_top20_prob_array
+            candi_top20_prob_array = np.zeros(20, np.float32)
+            for i in range(len(candi_top20_prob_array)):
+                candi_top20_prob_array[i] = question_type_to_prob_array[q_type][ex['condi_ans']['top20'][i]]
+            ex['bias'] = candi_top20_prob_array
 
     train_loader = DataLoader(train_dset, opt.batch_size, shuffle=True, num_workers=0)#1, collate_fn=utils.trim_collate)
     opt.use_all = 1

@@ -17,7 +17,7 @@ class Model(nn.Module):
         self.opt = opt
         self.model = LxmertModel.from_pretrained('unc-nlp/lxmert-base-uncased', return_dict=True)
         self.model = nn.DataParallel(self.model)#.cuda()
-        self.condi_ans_num = opt.train_condi_ans_num
+        self.candi_ans_num = opt.train_candi_ans_num
         self.batchsize = opt.batch_size
         self.Linear_layer = nn.Linear(768, 1)#.cuda()
         norm = opt.norm#"weight"                                                      
@@ -28,7 +28,7 @@ class Model(nn.Module):
 
     def forward(self, qa_text, v, b, epo, name):
         """
-        qa_text (btachsize, condi_ans_num, max_length)
+        qa_text (btachsize, candi_ans_num, max_length)
         v (batchsize, obj_num, v_dim)
         b (batchsize, obj_num, b_dim)
 
@@ -40,20 +40,20 @@ class Model(nn.Module):
 
         print("qa_text.shape",qa_text.shape)
         if name == 'train':
-            self.condi_ans_num = self.opt.train_condi_ans_num
+            self.candi_ans_num = self.opt.train_candi_ans_num
         elif name == 'test':
-            self.condi_ans_num = self.opt.test_condi_ans_num
-        qa_text_reshape = qa_text.reshape(qa_text.shape[0] * self.condi_ans_num, -1)
-        v_repeat = v.repeat(1, self.condi_ans_num, 1)
-        v_reshape = v_repeat.reshape( v.shape[0] * self.condi_ans_num,v.shape[1], v.shape[2] )
-        b_repeat = b.repeat(1, self.condi_ans_num , 1)
-        b_reshape = b_repeat.reshape( b.shape[0] * self.condi_ans_num,b.shape[1], b.shape[2] )
+            self.candi_ans_num = self.opt.test_candi_ans_num
+        qa_text_reshape = qa_text.reshape(qa_text.shape[0] * self.candi_ans_num, -1)
+        v_repeat = v.repeat(1, self.candi_ans_num, 1)
+        v_reshape = v_repeat.reshape( v.shape[0] * self.candi_ans_num,v.shape[1], v.shape[2] )
+        b_repeat = b.repeat(1, self.candi_ans_num , 1)
+        b_reshape = b_repeat.reshape( b.shape[0] * self.candi_ans_num,b.shape[1], b.shape[2] )
         
         outputs = self.model(qa_text_reshape, v_reshape, b_reshape)
         pool_out = outputs.pooled_output
         
         logits = self.classifier(pool_out)
-        logits_reshape = logits.reshape(-1, self.condi_ans_num)
+        logits_reshape = logits.reshape(-1, self.candi_ans_num)
         
         return logits_reshape
 

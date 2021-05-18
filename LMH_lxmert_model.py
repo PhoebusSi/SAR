@@ -18,7 +18,7 @@ class Model(nn.Module):
         self.opt = opt
         self.model = LxmertModel.from_pretrained('unc-nlp/lxmert-base-uncased', return_dict=True)
         self.model = nn.DataParallel(self.model)
-        self.condi_ans_num = opt.train_condi_ans_num
+        self.candi_ans_num = opt.train_candi_ans_num
         self.batchsize = opt.batch_size
         self.Linear_layer = nn.Linear(768, 1)
         norm = opt.norm                                                      
@@ -30,7 +30,7 @@ class Model(nn.Module):
 
     def forward(self, qa_text, v, b, epo, name, bias, labels):
         """
-        qa_text (btachsize, condi_ans_num, max_length)
+        qa_text (btachsize, candi_ans_num, max_length)
         v (batchsize, obj_num, v_dim)
         b (batchsize, obj_num, b_dim)
 
@@ -42,23 +42,23 @@ class Model(nn.Module):
         bias = bias.cuda()
 
         if name == 'train':
-            self.condi_ans_num = self.opt.train_condi_ans_num
+            self.candi_ans_num = self.opt.train_candi_ans_num
         elif name == 'test':
-            self.condi_ans_num = self.opt.test_condi_ans_num
-        qa_text_reshape = qa_text.reshape(qa_text.shape[0] * self.condi_ans_num, -1)
+            self.candi_ans_num = self.opt.test_candi_ans_num
+        qa_text_reshape = qa_text.reshape(qa_text.shape[0] * self.candi_ans_num, -1)
 
-        v_repeat = v.repeat(1, self.condi_ans_num, 1)
-        v_reshape = v_repeat.reshape( v.shape[0] * self.condi_ans_num,v.shape[1], v.shape[2] )
-        b_repeat = b.repeat(1, self.condi_ans_num , 1)
-        b_reshape = b_repeat.reshape( b.shape[0] * self.condi_ans_num,b.shape[1], b.shape[2] )
+        v_repeat = v.repeat(1, self.candi_ans_num, 1)
+        v_reshape = v_repeat.reshape( v.shape[0] * self.candi_ans_num,v.shape[1], v.shape[2] )
+        b_repeat = b.repeat(1, self.candi_ans_num , 1)
+        b_reshape = b_repeat.reshape( b.shape[0] * self.candi_ans_num,b.shape[1], b.shape[2] )
 
         
         outputs = self.model(qa_text_reshape, v_reshape, b_reshape)
         pool_out = outputs.pooled_output
         
         logits = self.classifier(pool_out)
-        logits_reshape = logits.reshape(-1, self.condi_ans_num)
-        pool_out_reshape = pool_out.reshape(v.shape[0], self.condi_ans_num, -1)  
+        logits_reshape = logits.reshape(-1, self.candi_ans_num)
+        pool_out_reshape = pool_out.reshape(v.shape[0], self.candi_ans_num, -1)  
         
         if labels is not None:
             loss = self.debias_loss_fn(torch.mean(pool_out_reshape,dim=1,keepdim=False), logits_reshape,bias, labels)

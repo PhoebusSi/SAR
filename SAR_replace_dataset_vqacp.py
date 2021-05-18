@@ -104,11 +104,11 @@ def _create_entry(img, question, answer, ans4reranker, label2ans):
         else:
             answer['label_text'] = None
             answer['label_all_text'] = None
-        condi_ans = {}
-        condi_ans['top20'] = ans4reranker['top20']
-        condi_ans['top20_scores'] = ans4reranker['top20_scores']
-        top20_text = [label2ans[i] for i in condi_ans['top20']]
-        condi_ans['top20_text'] = top20_text
+        candi_ans = {}
+        candi_ans['top20'] = ans4reranker['top20']
+        candi_ans['top20_scores'] = ans4reranker['top20_scores']
+        top20_text = [label2ans[i] for i in candi_ans['top20']]
+        candi_ans['top20_text'] = top20_text
             
 
     entry = {
@@ -118,7 +118,7 @@ def _create_entry(img, question, answer, ans4reranker, label2ans):
         'question': question['question'],
         'question_type': answer['question_type'],
         'answer': answer,
-        'condi_ans' : condi_ans
+        'candi_ans' : candi_ans
         }
     return entry
 
@@ -200,11 +200,11 @@ class VQAFeatureDataset(Dataset):
         self.label2ans = cPickle.load(open(label2ans_path, 'rb'))
         
         if name == "train":
-            self.condi_ans_num = opt.train_condi_ans_num
-            self.num_ans_candidates = opt.train_condi_ans_num
+            self.candi_ans_num = opt.train_candi_ans_num
+            self.num_ans_candidates = opt.train_candi_ans_num
         elif name == "test":
-            self.condi_ans_num = opt.test_condi_ans_num
-            self.num_ans_candidates = opt.test_condi_ans_num
+            self.candi_ans_num = opt.test_candi_ans_num
+            self.num_ans_candidates = opt.test_candi_ans_num
 
         self.dictionary = dictionary
         self.adaptive = adaptive
@@ -221,18 +221,18 @@ class VQAFeatureDataset(Dataset):
         is_exist = os.path.exists('data4VE/R_'+name+'_top20_densecaption_tokenizer_ids.pkl')
         if not is_exist:
             self.entries = _load_dataset(dataroot, name, self.label2ans, ratio)
-            self.tokenize(max_length=15, condi_ans_num=self.condi_ans_num)
+            self.tokenize(max_length=15, candi_ans_num=self.candi_ans_num)
             self.tensorize(name)
         else:
             fp = open('data4VE/R_'+name+"_top20_densecaption_tokenizer_ids.pkl","rb+")
             self.entries = pickle.load(fp)
-    def tokenize(self, max_length=15, condi_ans_num=5):
+    def tokenize(self, max_length=15, candi_ans_num=5):
         tokenizer = LxmertTokenizer.from_pretrained('unc-nlp/lxmert-base-uncased')
         for entry in self.entries:
             q_a_text_top20 = []
             question_text = entry['question']
             question_type_text = entry['question_type']
-            ans_text_list = entry['condi_ans']['top20_text']
+            ans_text_list = entry['candi_ans']['top20_text']
             for ind, i in enumerate(ans_text_list):
                 lower_question_text = question_text.lower()
                 if question_type_text in lower_question_text :
@@ -252,17 +252,17 @@ class VQAFeatureDataset(Dataset):
                     q_a_tokens_top_20 = q_a_tokens_tensor
                 else:
                     q_a_tokens_top_20 = torch.cat([q_a_tokens_top_20, q_a_tokens_tensor])
-            entry['condi_ans']["20_qa_text"] = q_a_tokens_top_20
+            entry['candi_ans']["20_qa_text"] = q_a_tokens_top_20
 
                
     def tensorize(self, name):
         for entry in self.entries:
             answer = entry['answer']
-            condi_ans = entry['condi_ans']
-            top20 = torch.from_numpy(np.array(condi_ans['top20']))
-            entry['condi_ans']['top20'] = top20
-            top20_scores = torch.from_numpy(np.array(condi_ans['top20_scores']))
-            entry['condi_ans']['top20_scores'] = top20_scores
+            candi_ans = entry['candi_ans']
+            top20 = torch.from_numpy(np.array(candi_ans['top20']))
+            entry['candi_ans']['top20'] = top20
+            top20_scores = torch.from_numpy(np.array(candi_ans['top20_scores']))
+            entry['candi_ans']['top20_scores'] = top20_scores
         with open('data4VE/R_'+name+'_top20_densecaption_tokenizer_ids.pkl', 'wb') as f:
             pickle.dump(self.entries, f)
 
@@ -275,16 +275,16 @@ class VQAFeatureDataset(Dataset):
         question_text = entry['question']
         question_id = entry['question_id']
         answer = entry['answer']
-        condi_ans = entry['condi_ans']
+        candi_ans = entry['condi_ans']
 
         if None != answer:
             labels = answer['labels']
             scores = answer['scores']
             ans_type = answer['answer_type'] 
-            target = condi_ans['top20_scores'][:self.condi_ans_num]
-            qa_text = condi_ans['20_qa_text'][:self.condi_ans_num]
-            topN_id = condi_ans['top20'][:self.condi_ans_num]
-            LMH_bias = entry["bias"][:self.condi_ans_num] 
+            target = candi_ans['top20_scores'][:self.candi_ans_num]
+            qa_text = candi_ans['20_qa_text'][:self.candi_ans_num]
+            topN_id = candi_ans['top20'][:self.candi_ans_num]
+            LMH_bias = entry["bias"][:self.candi_ans_num] 
             return features, spatials, target, question_id, qa_text, topN_id, ans_type, question_text, LMH_bias#entry["bias"] 
         else:
             return features, spatials, question_id

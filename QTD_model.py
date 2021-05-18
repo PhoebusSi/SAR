@@ -83,7 +83,7 @@ class Model(nn.Module):
         self.q_emb = QuestionEmbedding(in_dim=300, num_hid=num_hid, nlayers=1,
                                        bidirect=False, dropout=dropG, rnn_type='GRU')
         self.q_net = FCNet([self.q_emb.num_hid, num_hid], dropout=dropL, norm=norm, act=activation)
-        self.classifier = SimpleClassifier(in_dim=num_hid, hid_dim = num_hid//2 , out_dim= 2,#opt.test_condi_ans_num,
+        self.classifier = SimpleClassifier(in_dim=num_hid, hid_dim = num_hid//2 , out_dim= 2,#opt.test_candi_ans_num,
                                            dropout=dropC, norm=norm, act=activation)
         self.normal = nn.BatchNorm1d(num_hid,affine=False)
 

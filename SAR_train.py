@@ -86,7 +86,7 @@ def train(model, train_loader, eval_loader, opt):
             a = a.cuda()
             bias = bias.cuda()
             qa_text = qa_text.cuda()
-            rand_index = random.sample(range(0, opt.train_condi_ans_num), opt.train_condi_ans_num)
+            rand_index = random.sample(range(0, opt.train_candi_ans_num), opt.train_candi_ans_num)
             qa_text = qa_text[:,rand_index,:]
             a = a[:,rand_index]
             bias = bias[:,rand_index]
@@ -141,11 +141,11 @@ def train(model, train_loader, eval_loader, opt):
 
         if (eval_loader is not None and eval_score > best_eval_score):
             if opt.lp == 0:
-                model_path = os.path.join(opt.output, 'SAR_top'+str(opt.train_condi_ans_num)+'_best_model.pth')
+                model_path = os.path.join(opt.output, 'SAR_top'+str(opt.train_candi_ans_num)+'_best_model.pth')
             elif opt.lp == 1:
-                model_path = os.path.join(opt.output, 'SAR_SSL_top'+str(opt.train_condi_ans_num)+'_best_model.pth')
+                model_path = os.path.join(opt.output, 'SAR_SSL_top'+str(opt.train_candi_ans_num)+'_best_model.pth')
             elif opt.lp == 2:
-                model_path = os.path.join(opt.output, 'SAR_LMH_top'+str(opt.train_condi_ans_num)+'_best_model.pth')
+                model_path = os.path.join(opt.output, 'SAR_LMH_top'+str(opt.train_candi_ans_num)+'_best_model.pth')
             utils.save_model(model_path, model, epoch, optim)
             if eval_loader is not None:
                 best_eval_score = eval_score
@@ -154,7 +154,7 @@ def evaluate(model, dataloader, opt):
     score = 0
 
     score_ini_num_list=[]
-    for num in range(opt.test_condi_ans_num):
+    for num in range(opt.test_candi_ans_num):
         score_ini_num_list.append(0)
     upper_bound = 0
     num_data = 0
@@ -175,7 +175,7 @@ def evaluate(model, dataloader, opt):
         pred = logits
         batch_score = compute_score_with_logits(pred, a.cuda()).sum()
         score += batch_score.item()
-        for num in range(opt.test_condi_ans_num):
+        for num in range(opt.test_candi_ans_num):
             batch_score_num = compute_TopKscore_with_logits(pred, a.cuda(), num+1).sum()
             score_ini_num_list[num] += batch_score_num.item()
         upper_bound += (a.max(1)[0]).sum().item()
