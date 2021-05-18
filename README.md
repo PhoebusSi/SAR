@@ -33,7 +33,7 @@ This repository contains code modified from [here for SAR+SSL](https://github.co
 * After the Candidate Answers Selecting Module, we can get `train_top20_candidates.json` and `test_top20_candidates.json` files as the training and test set for Answer Re-ranking Module,respectively. There are demos for the two output json file in `data4VE` folder: `train_dataset4VE_demo.json`, `train_dataset4VE_demo.json`.  
 
 ## Builed Top20-Candidate-Answers dataset (entries) for training/test the model of Answer Re-ranking module
-If you don't want to train CAS model(e.g. SSL) to build the datasets in the way mentioned above, you can download the rebuiled top20-candidate-answers dataset (with different Qiestion-Answer-Combination strategies) from [here]('https://drive.google.com/drive/folders/1lHiXvSxnzIX2nVnHl14STJ6AZa7BccU6'). 
+If you don't want to train CAS model(e.g. SSL) to build the datasets in the way mentioned above, you can download the rebuiled top20-candidate-answers dataset (with different Qiestion-Answer-Combination strategies) from [here](https://drive.google.com/drive/folders/1lHiXvSxnzIX2nVnHl14STJ6AZa7BccU6). 
 
 * Put the downloaded Pickle file into the `data4VE` folder, then the code will load and rebuild it into the `entries` which will be feed in `__getitem__()` of dataloader. (Skipping all data preprocessing steps of the Answer Re-ranking based on Visual Entailment directly)
 * Each entry of the entries rebuiled from this Pickle file includes `image_features`, `image_spatials`, `top20_score`, `question_id`, `QA_text_ids`, `top20_label`, `answer_type`, `question_text`, `LMH_bias`, where `QA_text_ids` is the question-answer-combination(R/C) ids obtained/preprocessed from the LXMERT tokenizer. 
