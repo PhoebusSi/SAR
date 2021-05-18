@@ -19,8 +19,8 @@ This repository contains code modified from [here for SAR+SSL](https://github.co
  cd ..
 ```
 
-## Train Candidate Answers Selector and Build The Datasets for The Answers Re-ranking Module
-* The VQA model applied as CAS is free choice in our framework. In this paper, we mainly use SSL as CAS. 
+## Train Candidate Answers Selector & Build the datasets for the Answers Re-ranking module
+* The VQA model applied as Candidate Answer Selector(CAS) is a free choice in our framework. In this paper, we mainly use SSL as CAS. 
 
 
 * The setting of model training of CAS can be refered in [SSL](https://github.com/CrossmodalGroup/SSL-VQA). 
@@ -31,7 +31,7 @@ This repository contains code modified from [here for SAR+SSL](https://github.co
 
 * After the Candidate Answers Selecting Module, we can get `TrainingSet_top20_candidates.json` and `TestSet_top20_candidates.json` files as the training and test set for Answer Re-ranking Module,respectively.
 
-## Builed Top20-Candidate-Answers Dataset (Entries) for Training/Test the Model of Answer Re-ranking Module
+## Builed Top20-Candidate-Answers dataset (entries) for training/test the model of Answer Re-ranking module
 If you don't want to train CAS model(e.g. SSL) to build the datasets in the way mentioned above, you can download the rebuiled top20-candidate-answers dataset (with different Qiestion-Answer-Combination strategies) from [here]('www.baidu.com'). 
 
 * Put the downloaded Pickle file into the `data4VE` folder, then the code will load and rebuild it into the `entries` which will be feed in `__getitem__()` of dataloader. (Skipping all data processing steps of the Answer Re-ranking based on Visual Entailment directly)
