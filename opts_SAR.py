@@ -27,8 +27,8 @@ def parse_opt():
     # Optimization: General
     parser.add_argument('--num_epochs', type=int, default=20,
                     help='number of epochs')
-    parser.add_argument('--train_condi_ans_num', type=int, default=20,
-                    help='number of condidate answers')
+    parser.add_argument('--train_candi_ans_num', type=int, default=20,
+                    help='number of candidate answers')
 
     parser.add_argument('--s_epoch', type=int, default=0,
                     help='training from s epochs')
@@ -82,12 +82,12 @@ def parse_opt():
                     help='name of saved model')
     parser.add_argument('--lp', type=int, default=0, #[0, 1, 2]
                     help='the combination with Language-Priors method: 0-Non_LP; 1-SSL; 2-LMH')
-    parser.add_argument('--test_condi_ans_num', type=int, default=12,
-                    help='number of condidate answers in test')
+    parser.add_argument('--test_candi_ans_num', type=int, default=12,
+                    help='number of candidate answers in test')
     parser.add_argument('--QTD_N4yesno', type=int, default=1,
-                    help='number for the condidate answers of yes/no question in test')
+                    help='number for the candidate answers of yes/no question in test')
     parser.add_argument('--QTD_N4non_yesno', type=int, default=12,
-                    help='number for the condidate answers of non-yes/no question in test')
+                    help='number for the candidate answers of non-yes/no question in test')
 
 
 
