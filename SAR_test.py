@@ -7,13 +7,14 @@ from torch.utils.data import DataLoader
 import numpy as np
 
 from collections import defaultdict, Counter
-import opts_LMH as opts
+import opts_SAR as opts
 #R
-from SAR_replace_dataset_vqacp import Dictionary, VQAFeatureDataset
+#from SAR_replace_dataset_vqacp import Dictionary, VQAFeatureDataset
 #C
-#from SAR_concatenate_dataset_vqacp import Dictionary, VQAFeatureDataset
+from SAR_concatenate_dataset_vqacp import Dictionary, VQAFeatureDataset
 
-from LMH_lxmert_model import Model
+from LMH_lxmert_model import Model as LXM_Model
+from lxmert_model import Model
 from QTD_model import Model as Model2
 import utils
 
@@ -55,7 +56,12 @@ def get_logits(model, model2, dataloader, opt):
         b = b.cuda()
         qa_text = qa_text.cuda()
         topN_id = topN_id.cuda()
-        logits,_ = model(qa_text, v, b, 0, 'test',bias,a)
+        if opt.lp == 0:
+            logits = model(qa_text, v, b, 0, 'test')
+        elif opt.lp == 1:
+            logits = model(qa_text, v, b, 0, 'test')
+        elif opt.lp == 2:
+            logits,_ = model(qa_text, v, b, 0, 'test',bias,a)
         mask = model2(ques_text)
         for i in mask:
             l = i.tolist()
@@ -106,7 +112,12 @@ if __name__ == '__main__':
     batch_size = opt.batch_size * n_device
 
 
-    model = Model(opt)
+    if int(opt.lp) == 0:
+        model = Model(opt)
+    elif int(opt.lp) == 1:
+        model = Model(opt)
+    elif int(opt.lp) == 2:
+        model = LXM_Model(opt)
     model = model.cuda()
     model2 = Model2(opt)
     model2 = model2.cuda()
