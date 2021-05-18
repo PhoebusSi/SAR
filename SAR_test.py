@@ -189,7 +189,7 @@ if __name__ == '__main__':
             test_type = "-SAR+SSL"
         elif opt.lp == 2:
             test_type = "-SAR+LMH"
-        with open(opt.output+'/top'+str(opt.QTD_N4yesno)+'_'+str((opt.QTD_N4non_yesno)+test_type+'_answers_test_%s.json' \
+        with open(opt.output+'/top'+str(opt.QTD_N4yesno)+'_'+str(opt.QTD_N4non_yesno)+test_type+'_answers_test_%s.json' \
             % (model_label), 'w') as f:
             json.dump(results, f)
 
