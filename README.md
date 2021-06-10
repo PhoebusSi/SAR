@@ -86,4 +86,12 @@ CUDA_VISIBLE_DEVICES=0 python SAR_test.py  --checkpoint_path4test saved_models_c
 ```bash
 python comput_score.py --input saved_models_cp2/result/XX.json --dataroot data/vqacp2/cache
 ```
-
+## Reference
+If you found this code is useful, please cite the following paper:
+```
+@inproceedings{Si2021CheckIA,
+  title={Check It Again: Progressive Visual Question Answering via Visual Entailment},
+  author={Qingyi Si and Zheng Lin and Mingyu Zheng and Peng Fu and Weiping Wang},
+  year={2021}
+}
+```
