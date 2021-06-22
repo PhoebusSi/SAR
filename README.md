@@ -86,6 +86,9 @@ CUDA_VISIBLE_DEVICES=0 python SAR_test.py  --checkpoint_path4test saved_models_c
 ```bash
 python comput_score.py --input saved_models_cp2/result/XX.json --dataroot data/vqacp2/cache
 ```
+## Bugs or questions?
+If you have any questions related to the code or the paper, feel free to email Qingyi (`siqingyi@iie.ac.cn`). If you encounter any problems when using the code, or want to report a bug, you can open an issue. Please try to specify the problem with details so we can help you better and quicker!
+
 ## Reference
 If you found this code is useful, please cite the following paper:
 ```
