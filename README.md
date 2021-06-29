@@ -1,5 +1,5 @@
 # SAR-VQA
-Here is the implementation of our ACL-2021 [Check It Again: Progressive Visual Question Answering via Visual Entailment](https://arxiv.org/).
+Here is the implementation of our ACL-2021 [Check It Again: Progressive Visual Question Answering via Visual Entailment](https://arxiv.org/pdf/2106.04605.pdf).
 This repository contains code modified from [here for SAR+SSL](https://github.com/CrossmodalGroup/SSL-VQA) and [here for SAR+LMH](https://github.com/chrisc36/bottom-up-attention-vqa), many thanks!
 ![image](https://github.com/PhoebusSi/SAR/blob/master/model.jpg)
 ## Requirements
