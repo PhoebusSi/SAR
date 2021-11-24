@@ -92,9 +92,21 @@ If you have any questions related to the code or the paper, feel free to email Q
 ## Reference
 If you found this code is useful, please cite the following paper:
 ```
-@inproceedings{Si2021CheckIA,
-  title={Check It Again: Progressive Visual Question Answering via Visual Entailment},
-  author={Qingyi Si and Zheng Lin and Mingyu Zheng and Peng Fu and Weiping Wang},
-  year={2021}
+@inproceedings{si-etal-2021-check,
+    title = "Check It Again:Progressive Visual Question Answering via Visual Entailment",
+    author = "Si, Qingyi  and
+      Lin, Zheng  and
+      Zheng, Ming yu  and
+      Fu, Peng  and
+      Wang, Weiping",
+    booktitle = "Proceedings of the 59th Annual Meeting of the Association for Computational Linguistics and the 11th International Joint Conference on Natural Language Processing (Volume 1: Long Papers)",
+    month = aug,
+    year = "2021",
+    address = "Online",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2021.acl-long.317",
+    doi = "10.18653/v1/2021.acl-long.317",
+    pages = "4101--4110",
+    abstract = "While sophisticated neural-based models have achieved remarkable success in Visual Question Answering (VQA), these models tend to answer questions only according to superficial correlations between question and answer. Several recent approaches have been developed to address this language priors problem. However, most of them predict the correct answer according to one best output without checking the authenticity of answers. Besides, they only explore the interaction between image and question, ignoring the semantics of candidate answers. In this paper, we propose a select-and-rerank (SAR) progressive framework based on Visual Entailment. Specifically, we first select the candidate answers relevant to the question or the image, then we rerank the candidate answers by a visual entailment task, which verifies whether the image semantically entails the synthetic statement of the question and each candidate answer. Experimental results show the effectiveness of our proposed framework, which establishes a new state-of-the-art accuracy on VQA-CP v2 with a 7.55{\%} improvement.",
 }
 ```
